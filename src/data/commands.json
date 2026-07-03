@@ -1,0 +1,176 @@
+{
+  "windows": [
+    {
+      "category": "Network",
+      "commands": [
+        { "id": "w1",  "name": "Flush DNS Cache", "command": "ipconfig /flushdns", "description": "Clear the DNS resolver cache" },
+        { "id": "w2",  "name": "Reset Winsock", "command": "netsh winsock reset", "description": "Reset Winsock catalog to default" },
+        { "id": "w3",  "name": "Release IP", "command": "ipconfig /release", "description": "Release current IP address" },
+        { "id": "w4",  "name": "Renew IP", "command": "ipconfig /renew", "description": "Renew IP address from DHCP" },
+        { "id": "w5",  "name": "Reset Firewall", "command": "netsh advfirewall reset", "description": "Reset Windows Firewall to default" },
+        { "id": "w6",  "name": "Show Network Config", "command": "ipconfig /all", "description": "Display full network configuration" },
+        { "id": "w7",  "name": "Ping Test", "command": "ping {IP}", "default": "ping 8.8.8.8", "description": "Test connectivity to IP address" },
+        { "id": "w8",  "name": "Traceroute", "command": "tracert {DOMAIN}", "default": "tracert google.com", "description": "Trace route to destination" }
+      ]
+    },
+    {
+      "category": "System",
+      "commands": [
+        { "id": "w9",  "name": "System File Checker", "command": "sfc /scannow", "description": "Scan and repair system files" },
+        { "id": "w10", "name": "DISM Repair", "command": "DISM /Online /Cleanup-Image /RestoreHealth", "description": "Repair Windows image" },
+        { "id": "w11", "name": "Check Disk", "command": "chkdsk {DRIVE} /f /r", "default": "chkdsk C: /f /r", "description": "Check disk for errors and bad sectors" },
+        { "id": "w12", "name": "Disk Cleanup", "command": "cleanmgr /sagerun:1", "description": "Run disk cleanup utility" },
+        { "id": "w13", "name": "System Info", "command": "systeminfo", "description": "Display system information" },
+        { "id": "w14", "name": "Event Viewer", "command": "eventvwr.msc", "description": "Open Event Viewer" }
+      ]
+    },
+    {
+      "category": "Process & Services",
+      "commands": [
+        { "id": "w15", "name": "List Running Processes", "command": "tasklist", "description": "Show all running processes" },
+        { "id": "w16", "name": "Kill Process by Name", "command": "taskkill /F /IM {PROCESS}.exe", "default": "taskkill /F /IM notepad.exe", "description": "Force kill process by name" },
+        { "id": "w17", "name": "List Services", "command": "sc query type= service state= all", "description": "List all services" },
+        { "id": "w18", "name": "Restart Service", "command": "net stop {SERVICE} && net start {SERVICE}", "default": "net stop spooler && net start spooler", "description": "Restart a Windows service" },
+        { "id": "w19", "name": "Check Ports", "command": "netstat -ano", "description": "Show active connections and ports" }
+      ]
+    },
+    {
+      "category": "Windows Update",
+      "commands": [
+        { "id": "w20", "name": "Check Updates", "command": "wuauclt /detectnow", "description": "Force check for Windows Updates" },
+        { "id": "w21", "name": "Reset Update Components", "command": "net stop wuauserv && net start wuauserv", "description": "Restart Windows Update service" },
+        { "id": "w22", "name": "View Update History", "command": "wmic qfe list brief /format:table", "description": "List installed updates" }
+      ]
+    },
+    {
+      "category": "Driver",
+      "commands": [
+        { "id": "w23", "name": "List Drivers", "command": "driverquery", "description": "List all installed drivers" },
+        { "id": "w24", "name": "Update Driver", "command": "pnputil /scan-devices", "description": "Scan for hardware changes" }
+      ]
+    },
+    {
+      "category": "Power",
+      "commands": [
+        { "id": "w25", "name": "Shutdown", "command": "shutdown /s /t 0", "description": "Immediate shutdown" },
+        { "id": "w26", "name": "Restart", "command": "shutdown /r /t 0", "description": "Immediate restart" },
+        { "id": "w27", "name": "Cancel Shutdown", "command": "shutdown /a", "description": "Abort scheduled shutdown" }
+      ]
+    }
+  ],
+  "linux": [
+    {
+      "category": "Network",
+      "commands": [
+        { "id": "l1",  "name": "Flush DNS Cache", "command": "systemd-resolve --flush-caches", "description": "Clear the DNS resolver cache" },
+        { "id": "l2",  "name": "Restart Network", "command": "systemctl restart networking", "description": "Restart networking service" },
+        { "id": "l3",  "name": "Renew DHCP", "command": "dhclient -r && dhclient", "description": "Release and renew DHCP lease" },
+        { "id": "l4",  "name": "Show IP", "command": "ip addr show", "description": "Display network interfaces" },
+        { "id": "l5",  "name": "Show Routing", "command": "ip route show", "description": "Display routing table" },
+        { "id": "l6",  "name": "Ping Test", "command": "ping -c 4 {IP}", "default": "ping -c 4 8.8.8.8", "description": "Test connectivity to IP address" },
+        { "id": "l7",  "name": "Traceroute", "command": "traceroute {DOMAIN}", "default": "traceroute google.com", "description": "Trace route to destination" },
+        { "id": "l8",  "name": "Open Ports", "command": "ss -tuln", "description": "Show listening ports" },
+        { "id": "l9",  "name": "Firewall Rules", "command": "iptables -L {CHAIN}", "default": "iptables -L INPUT", "description": "List firewall rules for chain" },
+        { "id": "l10", "name": "DNS Lookup", "command": "nslookup {DOMAIN}", "default": "nslookup google.com", "description": "Query DNS records" }
+      ]
+    },
+    {
+      "category": "System",
+      "commands": [
+        { "id": "l11", "name": "System Update (Debian/Ubuntu)", "command": "apt update && apt upgrade -y", "description": "Update package lists and upgrade" },
+        { "id": "l12", "name": "System Update (Fedora/RHEL)", "command": "dnf upgrade -y", "description": "Upgrade packages with dnf" },
+        { "id": "l13", "name": "System Update (Arch)", "command": "pacman -Syu", "description": "System update with pacman" },
+        { "id": "l14", "name": "Check Disk Space", "command": "df -h", "description": "Display disk usage" },
+        { "id": "l15", "name": "Check Memory", "command": "free -h", "description": "Display memory usage" },
+        { "id": "l16", "name": "System Info", "command": "uname -a", "description": "Display kernel information" },
+        { "id": "l17", "name": "Uptime", "command": "uptime", "description": "Show system uptime and load" },
+        { "id": "l18", "name": "List Block Devices", "command": "lsblk", "description": "List block devices" }
+      ]
+    },
+    {
+      "category": "Process & Services",
+      "commands": [
+        { "id": "l19", "name": "List Processes", "command": "ps aux", "description": "Show all running processes" },
+        { "id": "l20", "name": "Top Processes", "command": "top -bn1 | head -20", "description": "Show top processes by CPU" },
+        { "id": "l21", "name": "Kill Process", "command": "kill -9 {PID}", "default": "kill -9 1234", "description": "Force kill process by PID" },
+        { "id": "l22", "name": "List Services (systemd)", "command": "systemctl list-units --type=service", "description": "List all systemd services" },
+        { "id": "l23", "name": "Restart Service", "command": "systemctl restart {SERVICE}", "default": "systemctl restart nginx", "description": "Restart a systemd service" },
+        { "id": "l24", "name": "Check Failed Services", "command": "systemctl --failed", "description": "Show failed services" },
+        { "id": "l25", "name": "Journal Logs", "command": "journalctl -xe", "description": "View system journal logs" }
+      ]
+    },
+    {
+      "category": "Disk & Filesystem",
+      "commands": [
+        { "id": "l26", "name": "Check Disk Health", "command": "smartctl -a {DEVICE}", "default": "smartctl -a /dev/sda", "description": "Check SMART disk status" },
+        { "id": "l27", "name": "Repair Filesystem", "command": "fsck {DEVICE}", "default": "fsck /dev/sda1", "description": "Check and repair filesystem" },
+        { "id": "l28", "name": "Mount filesystem", "command": "mount -a", "description": "Mount all filesystems in fstab" },
+        { "id": "l29", "name": "Find Large Files", "command": "du -sh /* 2>/dev/null | sort -rh | head -10", "description": "Find largest directories" },
+        { "id": "l30", "name": "Check Inodes", "command": "df -i", "description": "Check inode usage" }
+      ]
+    },
+    {
+      "category": "User & Permissions",
+      "commands": [
+        { "id": "l31", "name": "List Users", "command": "cat /etc/passwd | cut -d: -f1", "description": "List all system users" },
+        { "id": "l32", "name": "Fix Permissions", "command": "chown -R $(whoami) {PATH}", "default": "chown -R $(whoami) /var/www/html", "description": "Change ownership recursively" },
+        { "id": "l33", "name": "Check Sudo Access", "command": "sudo -l", "description": "List sudo permissions" },
+        { "id": "l34", "name": "Unlock User", "command": "passwd -u {USERNAME}", "default": "passwd -u john", "description": "Unlock a user account" }
+      ]
+    },
+    {
+      "category": "Power",
+      "commands": [
+        { "id": "l35", "name": "Shutdown", "command": "shutdown now", "description": "Immediate shutdown" },
+        { "id": "l36", "name": "Restart", "command": "reboot", "description": "Restart the system" },
+        { "id": "l37", "name": "Schedule Shutdown", "command": "shutdown +10 'Shutdown in 10 minutes'", "description": "Schedule shutdown in 10 minutes" },
+        { "id": "l38", "name": "Cancel Shutdown", "command": "shutdown -c", "description": "Cancel scheduled shutdown" }
+      ]
+    },
+    {
+      "category": "Logs & Diagnostics",
+      "commands": [
+        { "id": "l39", "name": "System Logs", "command": "tail -f /var/log/syslog", "description": "Follow system logs" },
+        { "id": "l40", "name": "Kernel Messages", "command": "dmesg | tail -50", "description": "Show recent kernel messages" },
+        { "id": "l41", "name": "Boot Logs", "command": "journalctl -b", "description": "Show current boot logs" },
+        { "id": "l42", "name": "Hardware Info", "command": "lshw -short", "description": "List hardware components" }
+      ]
+    }
+  ],
+  "website": [
+    {
+      "category": "Enumeration (Kali Linux)",
+      "commands": [
+        { "id": "s1",  "name": "Fetch URL Content", "command": "curl {URL}", "description": "Downloads and prints the page content" },
+        { "id": "s2",  "name": "WhatWeb Scan", "command": "whatweb -a 4 {IP}", "description": "General web scanner" },
+        { "id": "s3",  "name": "Nmap TCP Scan", "command": "nmap -Pn -sV {IP}", "description": "Scan which TCP port/s active in website" },
+        { "id": "s4",  "name": "Nmap UDP Scan", "command": "sudo nmap -sU {IP}", "description": "Scan which UDP port/s active in website" },
+        { "id": "s5",  "name": "WordPress Scan", "command": "wpscan --url {PROTOCOL}://{IP} --enumerate ap,at,cb,dbe", "description": "WordPress Enumeration" },
+        { "id": "s6",  "name": "Directories Scan", "command": "dirsearch -u {URL} -e php,html,js", "description": "Search directory using basic wordlists" },
+        { "id": "s7",  "name": "Nikto Scan", "command": "nikto -host {IP}:{PORT} -C all", "description": "Basic Site Info" },
+        { "id": "s8",  "name": "Website Crawling", "command": "cewl {URL}", "description": "Basic crawling wordlists from pages" }
+      ]
+    }
+  ],
+  "software": [
+    {
+      "category": "ReactJS - Vite",
+      "commands": [
+        { "id": "sf1", "name": "Create Project", "command": "npm create vite@latest {PROJECT_NAME}", "default": "npm create vite@latest my-app", "description": "Create a new Vite project" },
+        { "id": "sf2", "name": "Install Dependencies", "command": "npm install", "description": "Install all project dependencies" },
+        { "id": "sf3", "name": "Start Dev Server", "command": "npm run dev", "description": "Start Vite development server" },
+        { "id": "sf4", "name": "Build for Production", "command": "npm run build", "description": "Build optimized production bundle" }
+      ]
+    },
+    {
+      "category": "Publish Package",
+      "commands": [
+        { "id": "sf5", "name": "Initialize Package", "command": "npm init", "description": "Initialize a new npm package" },
+        { "id": "sf6", "name": "Login to npm", "command": "npm login", "description": "Authenticate with npm registry" },
+        { "id": "sf7", "name": "Set Auth Token", "command": "npm set //registry.npmjs.org/:_authToken={NPMJS_TOKEN}", "default": "npm set //registry.npmjs.org/:_authToken=your-token-here", "description": "Set npm authentication token" },
+        { "id": "sf8", "name": "Publish Package", "command": "npm publish", "description": "Publish package to npm registry" },
+        { "id": "sf9", "name": "Publish Public Package", "command": "npm publish --access public", "description": "Publish scoped package as public" }
+      ]
+    }
+  ]
+}
